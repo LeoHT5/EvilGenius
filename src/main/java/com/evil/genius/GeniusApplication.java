@@ -8,7 +8,6 @@ public class GeniusApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GeniusApplication.class, args);
-		System.out.println("Hi");
 	}
 
 }
