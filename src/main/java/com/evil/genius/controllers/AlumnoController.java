@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.evil.genius.models.Alumno;
 import com.evil.genius.services.AlumnoService;
@@ -40,6 +41,50 @@ public class AlumnoController {
     public ResponseEntity<List<Alumno>> obtenerListaAlumnos() {
         List<Alumno> listAlumnos = alumnoService.listarAlumnos();
         return ResponseEntity.ok(listAlumnos);
+    }
+
+    @RequestMapping("/obtenerAlumno/{id}")
+    public ResponseEntity<?> obtenerAlumno(@Valid @PathVariable("id") int id) {
+        Alumno buscarAlumno = alumnoService.obtenerAlumno(id);
+
+        if (buscarAlumno == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(buscarAlumno);
+    }
+
+    @PutMapping("/actualizarAlumno/{id}")
+    public ResponseEntity<?> actualizarAlumno(@Valid @RequestBody Alumno alumno, @PathVariable("id") int id,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body("Error en los datos enviados" + result.getAllErrors());
+        }
+
+        Alumno buscarAlumno = alumnoService.obtenerAlumno(id);
+
+        if (buscarAlumno == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        buscarAlumno.setNombreCompleto(alumno.getNombreCompleto());
+        buscarAlumno.setApellidoPaterno(alumno.getApellidoPaterno());
+        buscarAlumno.setApellidoMaterno(alumno.getApellidoMaterno());
+        buscarAlumno.setGradoAlumno(alumno.getGradoAlumno());
+        buscarAlumno.setSeccionAlumno(alumno.getSeccionAlumno());
+
+        Alumno actualizarAlumno = alumnoService.actualizarAlumno(buscarAlumno);
+        System.out.println("Datos actualizados del alumno");
+
+        return ResponseEntity.ok(actualizarAlumno);
+    }
+
+    @DeleteMapping("/eliminarAlumno/{id}")
+    public String eliminarAlumno(@PathVariable("id") int id) {
+
+        alumnoService.eliminarAlumno(id);
+
+        return "Alumno eliminado";
     }
 
 }
