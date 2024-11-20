@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/alumnos")
 public class AlumnoController {
 
     @Autowired
     private AlumnoService alumnoService;
 
-    @PostMapping("/registrarAlumno")
+    @PostMapping("/registrar")
     public ResponseEntity<?> registrarAlumno(@Valid @RequestBody Alumno alumno, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body("Error en los datos enviados" + result.getAllErrors());
@@ -37,13 +37,13 @@ public class AlumnoController {
         return ResponseEntity.ok(nuevoAlumno);
     }
 
-    @RequestMapping("/listaAlumnos")
+    @RequestMapping("/listar")
     public ResponseEntity<List<Alumno>> obtenerListaAlumnos() {
         List<Alumno> listAlumnos = alumnoService.listarAlumnos();
         return ResponseEntity.ok(listAlumnos);
     }
 
-    @RequestMapping("/obtenerAlumno/{id}")
+    @RequestMapping("/{id}")
     public ResponseEntity<?> obtenerAlumno(@Valid @PathVariable("id") int id) {
         Alumno buscarAlumno = alumnoService.obtenerAlumno(id);
 
@@ -54,7 +54,7 @@ public class AlumnoController {
         return ResponseEntity.ok(buscarAlumno);
     }
 
-    @PutMapping("/actualizarAlumno/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<?> actualizarAlumno(@Valid @RequestBody Alumno alumno, @PathVariable("id") int id,
             BindingResult result) {
         if (result.hasErrors()) {
@@ -79,7 +79,7 @@ public class AlumnoController {
         return ResponseEntity.ok(actualizarAlumno);
     }
 
-    @DeleteMapping("/eliminarAlumno/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public String eliminarAlumno(@PathVariable("id") int id) {
 
         alumnoService.eliminarAlumno(id);
