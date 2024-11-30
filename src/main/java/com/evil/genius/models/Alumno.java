@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.Getter;
@@ -40,12 +41,27 @@ public class Alumno implements Serializable {
     @NotEmpty(message = "Ingresar apellido Paterno")
     public String apellidoPaterno;
 
-    @Column(name = "gradoAlumno")
+    @Column(name = "grado")
     @NotEmpty(message = "Ingresar grado del Alumno")
-    public String gradoAlumno;
+    public String grado;
 
-    @Column(name = "seccionAlumno")
+    @Column(name = "seccion")
     @NotEmpty(message = "Ingresar seccion del Alumno")
-    public String seccionAlumno;
+    public String seccion;
+
+    @Column(name = "estadoAlumno")
+    public boolean estado;
+
+    @Column(name = "nivelAcademico")
+    @NotEmpty(message = "Seleccionar nivel academico")
+    public String nivelAcademico;
+
+    @Column(name = "correo")
+    @Email(message = "Ingresar correo electronico")
+    public String correo;
+
+    @Column(name = "password")
+    @NotEmpty(message = "Ingresar contraseña")
+    public String password;
 
 }

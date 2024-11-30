@@ -70,8 +70,8 @@ public class AlumnoController {
         buscarAlumno.setNombreCompleto(alumno.getNombreCompleto());
         buscarAlumno.setApellidoPaterno(alumno.getApellidoPaterno());
         buscarAlumno.setApellidoMaterno(alumno.getApellidoMaterno());
-        buscarAlumno.setGradoAlumno(alumno.getGradoAlumno());
-        buscarAlumno.setSeccionAlumno(alumno.getSeccionAlumno());
+        buscarAlumno.setGrado(alumno.getGrado());
+        buscarAlumno.setSeccion(alumno.getSeccion());
 
         Alumno actualizarAlumno = alumnoService.actualizarAlumno(buscarAlumno);
         System.out.println("Datos actualizados del alumno");
@@ -81,9 +81,7 @@ public class AlumnoController {
 
     @DeleteMapping("/eliminar/{id}")
     public String eliminarAlumno(@PathVariable("id") int id) {
-
         alumnoService.eliminarAlumno(id);
-
         return "Alumno eliminado";
     }
 
