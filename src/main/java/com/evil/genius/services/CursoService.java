@@ -1,6 +1,7 @@
 package com.evil.genius.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,18 +32,23 @@ public class CursoService implements CursoImplements {
     }
 
     @Override
-    public Curso obtenerCurso(Long id) {
-        return cursoRepository.findById(id).get();
-    }
-
-    @Override
     public void eliminarCurso(Long id) {
         cursoRepository.deleteById(id);
     }
 
     @Override
+    public Optional<Curso> obtenerCurso(Long id) {
+        return cursoRepository.findById(id);
+    }
+
+    @Override
     public Curso desabilitarCurso(Curso curso) {
         return cursoRepository.save(curso);
+    }
+
+    @Override
+    public List<Curso> listarHabilitado(boolean estado) {
+        return cursoRepository.findAllByEstado(estado);
     }
 
 }
