@@ -29,8 +29,8 @@ public class ProfesorController {
     @Autowired
     private ProfesorService profesorService;
 
-    @Autowired
-    private Profesor profesor;
+    // @Autowired
+    // private Profesor profesor;
 
     @RequestMapping("/listar")
     public ResponseEntity<?> listarProfesores() {
@@ -75,7 +75,6 @@ public class ProfesorController {
             obtenerProfesor.setApellidoMaterno(profesor.getApellidoMaterno());
             obtenerProfesor.setCorreo(profesor.getCorreo());
             obtenerProfesor.setPassword(profesor.getPassword());
-            obtenerProfesor.setEstado(profesor.isEstado());
 
             Profesor actualizarDatos = profesorService.actualizarProfesor(obtenerProfesor);
             return ResponseEntity.ok(actualizarDatos);
