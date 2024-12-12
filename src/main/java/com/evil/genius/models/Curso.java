@@ -26,24 +26,24 @@ public class Curso {
     @Id
     @Column(name = "codCurso")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long codCurso;
+    private Long codCurso;
 
     @Column(name = "nombre")
     @NotEmpty(message = "Ingresar nombre")
-    public String nombre;
+    private String nombre;
 
     @Column(name = "nivelAcademico")
     @NotEmpty(message = "Seleccionar nicel academico")
-    public String nivelAcademico;
+    private String nivelAcademico;
 
     @Column(name = "descripcion")
-    public String descripcion;
+    private String descripcion;
 
     @Column(name = "estado")
-    public boolean estado;
+    private boolean estado;
 
     @ManyToOne
     @JoinColumn(name = "codProfesor", nullable = false)
-    public Profesor profesor;
+    private Profesor profesor;
 
 }

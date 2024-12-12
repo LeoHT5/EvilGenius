@@ -27,41 +27,41 @@ public class Alumno implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codAlumno")
-    public int codAlumno;
+    private int codAlumno;
 
     @Column(name = "nombreCompleto")
     @NotEmpty(message = "Ingresar nombres completos")
-    public String nombreCompleto;
+    private String nombreCompleto;
 
     @Column(name = "apellidoMaterno")
     @NotEmpty(message = "Ingresar apellido Materno")
-    public String apellidoMaterno;
+    private String apellidoMaterno;
 
     @Column(name = "apellidoPaterno")
     @NotEmpty(message = "Ingresar apellido Paterno")
-    public String apellidoPaterno;
+    private String apellidoPaterno;
 
     @Column(name = "grado")
     @NotEmpty(message = "Ingresar grado del Alumno")
-    public String grado;
+    private String grado;
 
     @Column(name = "seccion")
     @NotEmpty(message = "Ingresar seccion del Alumno")
-    public String seccion;
+    private String seccion;
 
     @Column(name = "estadoAlumno")
-    public boolean estado;
+    private boolean estado;
 
     @Column(name = "nivelAcademico")
     @NotEmpty(message = "Seleccionar nivel academico")
-    public String nivelAcademico;
+    private String nivelAcademico;
 
     @Column(name = "correo")
     @Email(message = "Ingresar correo electronico")
-    public String correo;
+    private String correo;
 
     @Column(name = "password")
     @NotEmpty(message = "Ingresar contraseña")
-    public String password;
+    private String password;
 
 }

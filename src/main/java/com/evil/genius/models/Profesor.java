@@ -28,30 +28,30 @@ public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codProfesor")
-    public Long codProfesor;
+    private Long codProfesor;
 
     @Column(name = "nombres")
     @NotEmpty(message = "Ingresar nombres")
-    public String nombres;
+    private String nombres;
 
     @Column(name = "apellidoPaterno")
     @NotEmpty(message = "Ingresar apellido paterno")
-    public String apellidoPaterno;
+    private String apellidoPaterno;
 
     @Column(name = "apellidoMaterno")
     @NotEmpty(message = "Ingresar apellido materno")
-    public String apellidoMaterno;
+    private String apellidoMaterno;
 
     @Column(name = "correo")
     @NotEmpty(message = "Ingresar correo")
-    public String correo;
+    private String correo;
 
     @Column(name = "password")
     @NotEmpty(message = "Ingresar contraseña")
-    public String password;
+    private String password;
 
     @Column(name = "estado")
-    public boolean estado;
+    private boolean estado;
 
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Curso> cursos;
