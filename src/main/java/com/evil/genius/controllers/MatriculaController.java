@@ -10,7 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.evil.genius.DTOs.MatriculaDTO;
+import com.evil.genius.models.Alumno;
+import com.evil.genius.models.Curso;
 import com.evil.genius.models.Matricula;
+import com.evil.genius.repository.AlumnoRepository;
+import com.evil.genius.repository.CursoRepository;
 import com.evil.genius.services.MatriculaService;
 
 import jakarta.validation.Valid;
@@ -30,6 +35,15 @@ public class MatriculaController {
     @Autowired
     private MatriculaService matriculaService;
 
+    @Autowired
+    private AlumnoRepository alumnoRepository;
+
+    @Autowired
+    private CursoRepository cursoRepository;
+
+    @Autowired
+    private Matricula matricula;
+
     @RequestMapping(value = "/listar", method = RequestMethod.GET)
     public ResponseEntity<?> listarMatricula() {
         List<Matricula> listar = matriculaService.listarMatriculas();
@@ -37,11 +51,21 @@ public class MatriculaController {
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarMatricula(@Valid @RequestBody Matricula matricula, BindingResult result) {
+    public ResponseEntity<?> registrarMatricula(@Valid @RequestBody MatriculaDTO matriculaDTO, BindingResult result) {
 
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.hasErrors());
         }
+
+        Alumno alumno = alumnoRepository.findById(matriculaDTO.getCodAlumno())
+                .orElseThrow(() -> new RuntimeException("Alumno no encontrado"));
+        Curso curso = cursoRepository.findById(matriculaDTO.getCodCurso())
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+
+        matricula.setAlumno(alumno);
+        matricula.setCurso(curso);
+        matricula.setFechaMatricula(matriculaDTO.getFecha());
+        matricula.setEstado(matriculaDTO.isEstado());
 
         Matricula registrar = matriculaService.crearMatricula(matricula);
         return ResponseEntity.ok(registrar);
@@ -55,7 +79,7 @@ public class MatriculaController {
     }
 
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> actualizarMatricula(@Valid @PathVariable Long id, @RequestBody Matricula matricula,
+    public ResponseEntity<?> actualizarMatricula(@Valid @PathVariable Long id, @RequestBody MatriculaDTO matriculaDTO,
             BindingResult result) {
 
         if (result.hasErrors()) {
@@ -65,11 +89,16 @@ public class MatriculaController {
         Optional<Matricula> optional = matriculaService.obtenerMatricula(id);
 
         if (optional.isPresent()) {
+
+            Alumno alumno = alumnoRepository.findById(matriculaDTO.getCodAlumno())
+                    .orElseThrow(() -> new RuntimeException("Alumno no encontrado"));
+            Curso curso = cursoRepository.findById(matriculaDTO.getCodCurso())
+                    .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+
             Matricula obtenerMatricula = optional.get();
-            obtenerMatricula.setAlumno(obtenerMatricula.getAlumno());
-            obtenerMatricula.setCurso(obtenerMatricula.getCurso());
-            obtenerMatricula.setFechaMatricula(obtenerMatricula.getFechaMatricula());
-            obtenerMatricula.setEstado(obtenerMatricula.isEstado());
+            obtenerMatricula.setAlumno(alumno);
+            obtenerMatricula.setCurso(curso);
+            obtenerMatricula.setFechaMatricula(matriculaDTO.getFecha());
 
             Matricula actualizar = matriculaService.actualizarMatricula(obtenerMatricula);
 
