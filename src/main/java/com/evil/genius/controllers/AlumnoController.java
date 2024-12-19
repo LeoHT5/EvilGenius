@@ -72,6 +72,7 @@ public class AlumnoController {
         buscarAlumno.setApellidoMaterno(alumno.getApellidoMaterno());
         buscarAlumno.setGrado(alumno.getGrado());
         buscarAlumno.setSeccion(alumno.getSeccion());
+        buscarAlumno.setUsuario(alumno.getUsuario());
 
         Alumno actualizarAlumno = alumnoService.actualizarAlumno(buscarAlumno);
         System.out.println("Datos actualizados del alumno");

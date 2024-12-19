@@ -11,4 +11,5 @@ import com.evil.genius.models.Notas;
 public interface NotasRepository extends JpaRepository<Notas, Long> {
 
     List<Notas> findAllByEstado(boolean estado);
+
 }

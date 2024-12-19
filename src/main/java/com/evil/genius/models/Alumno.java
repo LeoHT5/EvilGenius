@@ -2,25 +2,19 @@ package com.evil.genius.models;
 
 import java.io.Serializable;
 
-import org.springframework.stereotype.Component;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Component
 @Data
-@Setter
-@Getter
 @Table(name = "tb_Alumno")
 public class Alumno implements Serializable {
 
@@ -56,12 +50,8 @@ public class Alumno implements Serializable {
     @NotEmpty(message = "Seleccionar nivel academico")
     private String nivelAcademico;
 
-    @Column(name = "correo")
-    @Email(message = "Ingresar correo electronico")
-    private String correo;
-
-    @Column(name = "password")
-    @NotEmpty(message = "Ingresar contraseña")
-    private String password;
+    @OneToOne
+    @JoinColumn(name = "codUsuario", nullable = false)
+    private Usuario usuario;
 
 }

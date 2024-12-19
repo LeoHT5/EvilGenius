@@ -73,8 +73,7 @@ public class ProfesorController {
             obtenerProfesor.setNombres(profesor.getNombres());
             obtenerProfesor.setApellidoPaterno(profesor.getApellidoPaterno());
             obtenerProfesor.setApellidoMaterno(profesor.getApellidoMaterno());
-            obtenerProfesor.setCorreo(profesor.getCorreo());
-            obtenerProfesor.setPassword(profesor.getPassword());
+            obtenerProfesor.setUsuario(profesor.getUsuario());
 
             Profesor actualizarDatos = profesorService.actualizarProfesor(obtenerProfesor);
             return ResponseEntity.ok(actualizarDatos);
